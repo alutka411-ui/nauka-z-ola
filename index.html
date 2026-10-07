@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2563eb">
+<meta name="application-name" content="Nauka z Olą">
+<meta name="apple-mobile-web-app-title" content="Nauka z Olą">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="favicon.png">
+<title>Nauka z Olą – Miary i pieniądze</title>
+<style>
+:root{--bg:#eef6ff;--card:#fff;--ink:#172033;--muted:#64748b;--blue:#2563eb;--blue2:#dbeafe;--green:#16a34a;--green2:#dcfce7;--orange:#f59e0b;--orange2:#fff4cc;--red:#ef4444;--red2:#fee2e2;--purple:#7c3aed;--pink:#ec4899;--border:#dbe5f0;--shadow:0 12px 32px rgba(37,99,235,.10);--radius:24px}
+*{box-sizing:border-box}html,body{margin:0;background:linear-gradient(180deg,#eaf4ff 0,#f8fbff 55%,#eef8f2 100%);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer;border:0}.app{max-width:1240px;margin:auto;padding:14px 14px 40px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}.brand{display:flex;align-items:center;gap:12px}.brand-icon{width:58px;height:58px;border-radius:19px;background:#fff;display:grid;place-items:center;font-size:30px;box-shadow:var(--shadow);overflow:hidden}.brand-icon img{width:100%;height:100%;object-fit:cover}.brand h1{margin:0;font-size:clamp(21px,3vw,32px)}.brand p{margin:3px 0 0;color:var(--muted);font-size:13px}.score{background:#fff;border:1px solid var(--border);padding:10px 14px;border-radius:999px;font-weight:900;box-shadow:var(--shadow)}.score b{color:var(--blue)}
+.tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:14px}.tab{background:#fff;border:1px solid var(--border);border-radius:18px;padding:13px 8px;font-weight:900;color:#334155;transition:.16s}.tab.active{background:var(--blue);border-color:var(--blue);color:#fff;transform:translateY(-1px)}.tab:active{transform:scale(.98)}.page{display:none}.page.active{display:block}.hero,.card{background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow);border-radius:var(--radius)}.hero{padding:18px;margin-bottom:14px}.hero h2{margin:0 0 5px;font-size:26px}.hero p{margin:0;color:var(--muted);line-height:1.45}.grid2{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.card{padding:16px}.card h3{margin:0 0 8px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.between{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.muted{color:var(--muted)}.small{font-size:13px}.pill{padding:8px 12px;border-radius:999px;background:#f8fafc;border:1px solid var(--border);font-size:13px;font-weight:900}.primary,.secondary,.ghost,.danger{padding:11px 14px;border-radius:13px;font-weight:900}.primary{background:var(--blue);color:#fff}.secondary{background:#e2e8f0;color:#1e293b}.ghost{background:#fff;border:1px solid var(--border);color:#334155}.danger{background:var(--red);color:#fff}.status{padding:11px 13px;border-radius:13px;font-weight:800;margin-top:10px}.ok{background:var(--green2);color:#166534}.warn{background:var(--orange2);color:#92400e}.bad{background:var(--red2);color:#991b1b}.welcome-banner{background:linear-gradient(135deg,#fff7c2,#e7f7ff);border:2px solid #fde68a;color:#243047;border-radius:22px;padding:15px 18px;margin:0 0 14px;box-shadow:var(--shadow);font-size:16px}.welcome-banner b{color:#b45309}.celebration{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:9999;pointer-events:none;background:rgba(255,255,255,.15)}.celebration.show{display:flex;animation:celebrateFade .95s ease}.celebration-inner{min-width:280px;max-width:90vw;text-align:center;background:#fff;border:3px solid #facc15;border-radius:28px;padding:24px 30px;box-shadow:0 24px 60px rgba(37,99,235,.22);animation:celebratePop .95s ease}.celebration-stars{font-size:24px;color:#f59e0b;letter-spacing:6px}.celebration-inner>div:nth-child(2){font-size:32px;font-weight:1000;color:#15803d;margin-top:5px}.celebration-sub{margin-top:5px;color:#64748b;font-weight:700}@keyframes celebratePop{0%{transform:scale(.65) rotate(-4deg);opacity:0}45%{transform:scale(1.06) rotate(1deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:1}}@keyframes celebrateFade{0%,75%{opacity:1}100%{opacity:0}}
+/* bottle game */
+.bottle-picker{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:10px}.bottle-choice{background:#fff;border:2px solid var(--border);border-radius:16px;padding:10px 5px;text-align:center;font-weight:900}.bottle-choice.active{border-color:#60a5fa;background:var(--blue2);color:#1d4ed8}.bottle-mini{height:58px;width:30px;margin:auto auto 5px;border:3px solid #93c5fd;border-radius:8px 8px 12px 12px;background:linear-gradient(180deg,rgba(255,255,255,.95),#dbeafe);position:relative}.bottle-mini:before{content:"";position:absolute;left:7px;right:7px;top:-9px;height:10px;border:3px solid #93c5fd;border-bottom:0;border-radius:5px 5px 0 0;background:#fff}.bottle-choice:nth-child(5) .bottle-mini,.bottle-choice:nth-child(6) .bottle-mini{height:68px;width:38px}
+.bottle-stage{display:grid;grid-template-columns:1fr 120px 1fr;gap:10px;align-items:center;margin-top:14px}.station{position:relative;min-height:420px;background:linear-gradient(180deg,#eef7ff,#fff);border:1px solid #d8e8ff;border-radius:24px;padding:14px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}.station.drop-ready{box-shadow:0 0 0 4px #86efac,0 18px 38px rgba(34,197,94,.15)}.station-label{position:absolute;left:12px;top:12px;background:#fff;padding:7px 9px;border-radius:999px;border:1px solid var(--border);font-weight:900}.bottle{position:relative;width:150px;height:300px;border:6px solid #8bb7f3;border-radius:28px 28px 34px 34px;background:rgba(255,255,255,.60);overflow:hidden;touch-action:none;user-select:none;box-shadow:0 14px 28px rgba(37,99,235,.10);transition:transform .18s,box-shadow .18s}.bottle.large{width:172px;height:328px}.bottle.dragging{box-shadow:0 0 0 5px #60a5fa,0 24px 40px rgba(37,99,235,.18);z-index:20}.bottle.pouring{transform:rotate(62deg) translateY(-10px);transform-origin:bottom center;box-shadow:0 0 0 5px #22c55e,0 24px 36px rgba(34,197,94,.18)}.bottle .neck{position:absolute;left:50%;transform:translateX(-50%);top:-17px;width:54px;height:25px;border:6px solid #8bb7f3;border-bottom:0;border-radius:12px 12px 0 0;background:#fff}.bottle .liquid{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,#63b3ff,#2563eb 65%,#1d4ed8);transition:height .35s}.bottle .liquid:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.34),transparent 30%,transparent 68%,rgba(255,255,255,.12));}.bottle .shine{position:absolute;left:20px;top:18px;width:12px;height:72%;border-radius:999px;background:rgba(255,255,255,.45)}.bottle .cap-label{position:absolute;top:58px;left:12px;right:12px;text-align:center;font-weight:950;color:#1e3a8a;background:rgba(255,255,255,.76);border-radius:12px;padding:6px}.marks{position:absolute;right:11px;top:54px;bottom:15px;width:46px;display:flex;flex-direction:column;justify-content:space-between;z-index:2;font-size:11px;font-weight:900;color:#334155}.marks span{display:flex;align-items:center;gap:3px}.marks i{width:15px;border-top:2px solid #64748b}.bottle-info{margin-top:10px;text-align:center}.bottle-amount{font-size:22px;font-weight:950}.drag-hint{margin-top:5px;color:var(--muted);font-size:12px}.pour-lane{display:grid;place-items:center;text-align:center;color:#2563eb;font-weight:950}.pour-arrow{font-size:44px;line-height:1}.water-stream{width:10px;height:110px;background:linear-gradient(180deg,#60a5fa,#2563eb);border-radius:999px;opacity:0;transform:scaleY(.3);transition:.15s}.pour-lane.active .water-stream{opacity:1;transform:scaleY(1);animation:pour .7s infinite ease-in-out}.pour-lane.active .pour-arrow{transform:translateY(8px)}@keyframes pour{0%,100%{opacity:.4}50%{opacity:1}}
+.target-task{background:linear-gradient(135deg,#eff6ff,#fff);border:1px solid #bfdbfe;padding:14px;border-radius:20px}.target-task .big{font-size:24px;font-weight:950}.quick-fill{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.quick-fill button{padding:8px 10px;border-radius:12px;background:#f8fafc;border:1px solid var(--border);font-weight:900}
+/* scale */
+.scale-stage{background:linear-gradient(180deg,#f8fbff,#fff);border:1px solid var(--border);border-radius:24px;padding:12px;min-height:430px}.scale{height:390px;max-width:780px;margin:auto;position:relative}.beam{position:absolute;left:15%;right:15%;top:74px;height:17px;background:#475569;border-radius:999px;transform-origin:50% 50%;transition:transform .35s}.pivot{position:absolute;left:50%;top:82px;transform:translateX(-50%);width:0;height:0;border-left:24px solid transparent;border-right:24px solid transparent;border-top:45px solid #334155}.pan-area{position:absolute;top:103px;width:35%;height:260px}.pan-area.left{left:4%}.pan-area.right{right:4%}.rope{position:absolute;top:0;left:50%;width:4px;height:82px;background:#64748b;transform:translateX(-50%)}.pan-bowl{position:absolute;top:70px;left:0;right:0;min-height:130px;border:5px solid #94a3b8;border-top-width:7px;border-radius:0 0 75px 75px;background:linear-gradient(180deg,#fff,#f8fafc);display:flex;flex-wrap:wrap;align-content:flex-start;justify-content:center;gap:6px;padding:12px}.pan-total{position:absolute;bottom:0;left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--border);padding:7px 11px;border-radius:999px;font-weight:950;white-space:nowrap}.scale-message{position:absolute;top:16px;left:50%;transform:translateX(-50%);padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--border);font-weight:950;white-space:nowrap}.balance{box-shadow:0 0 0 4px #86efac inset}.scale-item{display:flex;align-items:center;gap:5px;padding:4px 7px;border-radius:12px;background:#fff;border:1px solid var(--border);font-weight:900;font-size:12px}.pan-food-svg{width:32px;height:32px;display:block}.pan-food-name{display:flex;align-items:center;gap:3px}.food-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.food-card{background:#fff;border:2px solid var(--border);border-radius:18px;padding:8px;text-align:center;font-weight:900;min-height:110px;touch-action:none}.food-card.active{border-color:#22c55e;background:#f0fdf4}.food-svg{width:60px;height:60px;display:block;margin:auto}.mass-chip{display:inline-flex;align-items:center;justify-content:center;margin-top:4px;padding:4px 7px;border-radius:999px;background:#fff7ed;border:1px solid #fed7aa;font-size:11px}.weight-grid2{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}.weight-btn{background:#fff;border:2px solid var(--border);border-radius:15px;padding:10px 5px;text-align:center;font-weight:950;touch-action:none}.weight-visual{width:44px;height:28px;border-radius:7px;margin:auto auto 6px;background:linear-gradient(180deg,#aab4c1,#667788);border:2px solid #4b5563;box-shadow:inset 0 2px 0 rgba(255,255,255,.45)}.scale-task{padding:13px;border-radius:18px;background:linear-gradient(135deg,#f0fdf4,#fff);border:1px solid #bbf7d0}
+/* length */
+.ruler-card{background:#fff7ed;border:1px solid #fed7aa;border-radius:24px;padding:16px}.measure-scene{position:relative;height:280px;background:linear-gradient(180deg,#eff6ff,#fff);border:1px solid #dbeafe;border-radius:20px;overflow:hidden}.object-strip{position:absolute;left:40px;right:40px;top:56px;height:62px;display:flex;align-items:center}.object{height:42px;border-radius:12px;background:linear-gradient(180deg,#f59e0b,#d97706);box-shadow:0 8px 14px rgba(217,119,6,.20);color:#fff;font-weight:950;display:flex;align-items:center;justify-content:center;padding:0 12px;z-index:2}.measure-line{position:absolute;left:40px;top:119px;height:54px;border-left:4px dashed #22c55e}.end-line{position:absolute;top:119px;height:54px;border-left:4px dashed #ef4444}.zero-tag,.end-tag{position:absolute;top:177px;padding:5px 8px;border-radius:10px;font-size:12px;font-weight:950}.zero-tag{left:30px;background:#dcfce7;color:#166534}.end-tag{background:#fee2e2;color:#991b1b}.ruler-scale{position:absolute;left:40px;right:40px;top:196px;height:66px;background:linear-gradient(180deg,#fde68a,#fbbf24);border:3px solid #d97706;border-radius:8px}.ruler-ticks{position:absolute;left:0;right:0;top:0;bottom:24px}.rtick{position:absolute;bottom:0;width:2px;background:#7c2d12;height:20px}.rtick.cm{height:32px;width:3px}.ruler-numbers{position:absolute;left:0;right:0;bottom:2px;display:flex;justify-content:space-between;font-size:12px;font-weight:950;color:#78350f}.answer-grid2{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:12px}.answer-btn{padding:11px 7px;background:#fff;border:1px solid var(--border);border-radius:14px;font-weight:950}.answer-btn.selected{background:#ede9fe;border-color:#c4b5fd;color:#5b21b6}.length-tip{background:#fff;border:1px solid var(--border);padding:12px;border-radius:16px;margin-top:12px;font-weight:800}
+/* shop */
+.shop-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}.shelf{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.product{background:#fff;border:2px solid var(--border);border-radius:18px;padding:10px;text-align:center;transition:.15s;min-height:150px}.product.selected{border-color:#60a5fa;box-shadow:0 0 0 3px #dbeafe}.product-visual{height:62px;display:grid;place-items:center;font-size:48px}.product-name{font-weight:950}.product-price{margin-top:4px;font-size:19px;font-weight:950;color:#1d4ed8}.cashier{background:linear-gradient(180deg,#f0fdf4,#fff);border:1px solid #bbf7d0;border-radius:22px;padding:14px}.selected-product{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid var(--border);border-radius:16px;padding:10px}.wallet{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.money-btn{background:#fff;border:2px solid var(--border);border-radius:15px;padding:8px 5px;font-weight:950;text-align:center;transition:.12s;touch-action:none}.money-btn:active{transform:translateY(3px) rotate(-2deg)}.coin-visual{width:48px;height:48px;margin:auto auto 5px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff4b5,#fbbf24 55%,#d97706);border:3px solid #d97706;display:grid;place-items:center;color:#7c2d12;font-weight:950}.note-visual{height:38px;border-radius:8px;background:linear-gradient(180deg,#bbf7d0,#86efac);border:2px solid #16a34a;display:grid;place-items:center;color:#166534;font-weight:950;margin-bottom:5px}.register{margin-top:12px;background:#fff;border:2px dashed #86efac;border-radius:18px;padding:12px;min-height:116px}.money-pieces{display:flex;flex-wrap:wrap;gap:7px;min-height:46px}.mini-money{padding:7px 9px;border-radius:10px;background:#dbeafe;border:1px solid #93c5fd;font-weight:950}.money-total{font-size:24px;font-weight:950}.shop-mode{display:flex;gap:7px;margin:10px 0}.shop-mode button{padding:9px 12px;border-radius:999px;background:#f8fafc;border:1px solid var(--border);font-weight:900}.shop-mode button.active{background:#2563eb;color:#fff;border-color:#2563eb}.cart-task{background:linear-gradient(135deg,#eff6ff,#fff);border:1px solid #bfdbfe;padding:12px;border-radius:16px}
+/* tasks */
+.task-filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.task-filter-btn{padding:9px 11px;border-radius:999px;background:#fff;border:1px solid var(--border);font-weight:900}.task-filter-btn.active{background:#2563eb;color:#fff;border-color:#2563eb}.task-box{background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);border-radius:24px;padding:18px}.progress{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden}.progress>span{display:block;height:100%;background:linear-gradient(90deg,#2563eb,#7c3aed);width:0}.task-question{font-size:25px;font-weight:950;line-height:1.2;margin:18px 0}.task-options{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.task-option{padding:15px;border:2px solid var(--border);background:#fff;border-radius:16px;font-weight:950;text-align:left}.task-option.correct{background:#dcfce7;border-color:#4ade80}.task-option.wrong{background:#fee2e2;border-color:#f87171}.task-controls{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px}
+@media(max-width:950px){.tabs{grid-template-columns:repeat(3,1fr)}.grid2,.shop-layout{grid-template-columns:1fr}.bottle-stage{grid-template-columns:1fr}.pour-lane{transform:rotate(90deg);height:70px}.bottle-picker{grid-template-columns:repeat(3,1fr)}.food-grid{grid-template-columns:repeat(4,1fr)}.weight-grid2{grid-template-columns:repeat(4,1fr)}.shelf{grid-template-columns:repeat(3,1fr)}}
+
+/* Masa: jedna plansza robocza — wybór + zadanie + waga obok siebie */
+.mass-workbench{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(420px,1.28fr);gap:14px;align-items:start}
+.mass-inventory{display:grid;gap:14px}
+.mass-tools-card{padding:13px}
+.mass-help{margin:0 0 9px}
+.mass-food-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.mass-food-grid .food-card{min-height:96px;padding:6px;border-radius:14px}
+.mass-food-grid .food-svg{width:52px;height:52px}
+.mass-food-grid .mass-chip{font-size:10px;padding:3px 6px}
+.mass-weight-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.mass-weight-grid .weight-btn{padding:8px 4px;border-radius:13px}
+.mass-weight-grid .weight-visual{width:38px;height:24px}
+.mass-scale-card{position:sticky;top:10px}
+.mass-task-compact{padding:12px 14px;margin-bottom:10px}
+.mass-task-text{font-size:21px;font-weight:950;line-height:1.18;margin-top:3px}
+.mass-scale-stage{min-height:360px;padding:8px}
+.compact-scale{height:325px;max-width:720px}
+.compact-scale .beam{top:58px;height:15px}
+.compact-scale .pivot{top:66px;border-left-width:20px;border-right-width:20px;border-top-width:38px}
+.compact-scale .pan-area{top:86px;height:215px;width:37%}
+.compact-scale .rope{height:58px}
+.compact-scale .pan-bowl{top:50px;min-height:112px;border-width:4px;border-top-width:6px;padding:8px;gap:5px}
+.compact-scale .pan-total{font-size:14px;padding:5px 8px}
+.compact-scale .scale-message{top:4px;font-size:13px;padding:6px 9px}
+.compact-scale .scale-item{font-size:11px;padding:3px 5px}
+@media(max-width:980px){.mass-workbench{grid-template-columns:1fr}.mass-scale-card{position:relative;top:auto}.mass-scale-stage{min-height:390px}.compact-scale{height:350px}}
+
+@media(max-width:650px){.app{padding:10px 9px 26px}.tabs{grid-template-columns:repeat(2,1fr)}.hero h2{font-size:22px}.bottle-picker{grid-template-columns:repeat(3,1fr)}.station{min-height:350px}.bottle{width:128px;height:240px}.bottle.large{width:150px;height:265px}.food-grid{grid-template-columns:repeat(3,1fr)}.weight-grid2{grid-template-columns:repeat(3,1fr)}.answer-grid2{grid-template-columns:repeat(3,1fr)}.shelf{grid-template-columns:repeat(2,1fr)}.wallet{grid-template-columns:repeat(3,1fr)}.task-options{grid-template-columns:1fr}}
+</style>
+<style>
+.bottle-row{display:flex;gap:10px;overflow-x:auto;padding:8px 2px 12px;scrollbar-width:thin}.bottle-choice{min-width:88px;border:2px solid #dbeafe;background:#f8fbff;border-radius:18px;padding:10px 8px;font-weight:800;cursor:pointer}.bottle-choice.active{border-color:#1677ff;background:#eaf3ff;transform:translateY(-2px)}.bottle-mini{display:block;width:30px;height:48px;margin:0 auto 6px;border-radius:8px 8px 10px 10px;background:linear-gradient(#dff4ff 0 30%,#48b9f5 31%);border:2px solid #2998d5;position:relative}.bottle-mini:before{content:"";position:absolute;width:14px;height:9px;top:-10px;left:6px;border:2px solid #2998d5;border-bottom:0;border-radius:4px 4px 0 0}.bottle-mini.green{background:linear-gradient(#e8fff0 0 30%,#45c77a 31%);border-color:#2ca45b}.bottle-game{display:grid;grid-template-columns:1fr 100px 1fr;gap:12px;align-items:center;margin:14px 0}.game-bottle-card{background:white;border:3px solid #e2e8f0;border-radius:24px;padding:14px;text-align:center;cursor:pointer;transition:.2s}.game-bottle-card.selected{border-color:#1677ff;box-shadow:0 0 0 5px #dbeafe}.bigb{margin:8px auto;width:115px;height:230px}.pour-zone{text-align:center;font-size:30px}.pour-visual{width:72px;height:72px;border-radius:50%;background:#eaf7ff;display:grid;place-items:center;margin:auto}.pour-choices{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.pour-choice{border:2px solid #dbeafe;background:#fff;border-radius:14px;padding:10px 15px;font-weight:900;cursor:pointer}.pour-choice.active{background:#1677ff;color:white;border-color:#1677ff}.cm-demo{display:flex;align-items:center;justify-content:center;gap:18px}.cm-big,.mm-big{background:#f8fafc;border:2px solid #cbd5e1;border-radius:16px;padding:12px;text-align:center;font-weight:900}.mm-strip,.mm-blocks{display:grid;grid-template-columns:repeat(10,1fr);gap:2px;margin-top:10px}.mm-strip i,.mm-blocks i{display:grid;place-items:end center;height:44px;background:#bfdbfe;border-right:1px solid #64748b;font-style:normal;font-size:9px}.mm-blocks i{background:#bbf7d0}.equals{font-size:30px;font-weight:900}.length-object-scene{margin:15px 0;background:#f8fafc;border-radius:18px;padding:18px}.measure-object{height:56px;border-radius:15px;background:#fbbf24;display:flex;align-items:center;padding:0 14px;font-weight:900;max-width:100%}.mini-ruler{height:48px;position:relative;margin-top:15px;border-bottom:5px solid #334155;background:repeating-linear-gradient(90deg,#fef3c7 0,#fef3c7 calc(5% - 1px),#334155 calc(5% - 1px),#334155 5%)}.mini-tick{position:absolute;bottom:-13px;font-size:10px;transform:translateX(-50%)}.mini-tick.cm{font-weight:900;font-size:12px}.money-learning{background:linear-gradient(135deg,#fffdf0,#fff7d6)}.money-conversion-visual{margin-top:10px;padding:14px;border-radius:14px;background:white;font-size:22px;text-align:center}.test-panel{border:3px solid #fbbf24;background:linear-gradient(135deg,#fffdf0,#fff7d6)}
+
+/* Masa: jedna plansza robocza — wybór + zadanie + waga obok siebie */
+.mass-workbench{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(420px,1.28fr);gap:14px;align-items:start}
+.mass-inventory{display:grid;gap:14px}
+.mass-tools-card{padding:13px}
+.mass-help{margin:0 0 9px}
+.mass-food-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.mass-food-grid .food-card{min-height:96px;padding:6px;border-radius:14px}
+.mass-food-grid .food-svg{width:52px;height:52px}
+.mass-food-grid .mass-chip{font-size:10px;padding:3px 6px}
+.mass-weight-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.mass-weight-grid .weight-btn{padding:8px 4px;border-radius:13px}
+.mass-weight-grid .weight-visual{width:38px;height:24px}
+.mass-scale-card{position:sticky;top:10px}
+.mass-task-compact{padding:12px 14px;margin-bottom:10px}
+.mass-task-text{font-size:21px;font-weight:950;line-height:1.18;margin-top:3px}
+.mass-scale-stage{min-height:360px;padding:8px}
+.compact-scale{height:325px;max-width:720px}
+.compact-scale .beam{top:58px;height:15px}
+.compact-scale .pivot{top:66px;border-left-width:20px;border-right-width:20px;border-top-width:38px}
+.compact-scale .pan-area{top:86px;height:215px;width:37%}
+.compact-scale .rope{height:58px}
+.compact-scale .pan-bowl{top:50px;min-height:112px;border-width:4px;border-top-width:6px;padding:8px;gap:5px}
+.compact-scale .pan-total{font-size:14px;padding:5px 8px}
+.compact-scale .scale-message{top:4px;font-size:13px;padding:6px 9px}
+.compact-scale .scale-item{font-size:11px;padding:3px 5px}
+@media(max-width:980px){.mass-workbench{grid-template-columns:1fr}.mass-scale-card{position:relative;top:auto}.mass-scale-stage{min-height:390px}.compact-scale{height:350px}}
+
+@media(max-width:650px){.bottle-game{grid-template-columns:1fr 55px 1fr}.bigb{width:95px;height:200px}.pour-zone{font-size:22px}.cm-demo{gap:8px}.cm-big,.mm-big{padding:7px}.mm-strip i,.mm-blocks i{height:34px;font-size:7px}}
+
+.capacity-hero{background:linear-gradient(135deg,#e7f7ff,#effaf1)}
+.bottle-row-simple{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:10px}
+.simple-bottle-choice{background:#fff;border:2px solid var(--border);border-radius:18px;padding:10px 6px;min-height:115px;font-weight:900;transition:.16s}.simple-bottle-choice.active{border-color:#2563eb;background:#eff6ff;box-shadow:0 0 0 4px #dbeafe}.simple-bottle-choice:active{transform:scale(.98)}
+.simple-bottle-icon{display:block;position:relative;width:44px;height:70px;margin:0 auto 8px;border:3px solid #7fb3ee;border-radius:10px 10px 14px 14px;background:linear-gradient(180deg,#f8fdff 0 38%,#60a5fa 39% 100%);overflow:hidden}.simple-bottle-icon:before{content:"";position:absolute;left:10px;right:10px;top:-10px;height:12px;border:3px solid #7fb3ee;border-bottom:0;border-radius:6px 6px 0 0;background:#fff}.simple-bottle-icon .mini-water{position:absolute;left:0;right:0;bottom:0;height:58%;background:linear-gradient(180deg,#7dd3fc,#2563eb)}
+.capacity-tip-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.capacity-fact{background:#f8fafc;border:1px solid var(--border);border-radius:14px;padding:10px;text-align:center}.capacity-fact b{display:block;color:#1d4ed8}.capacity-fact span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.pour-choices-simple{display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin-top:10px}.simple-pour-btn{background:#fff;border:2px solid #bfdbfe;color:#1e40af;padding:10px 5px;border-radius:13px;font-weight:950}.simple-pour-btn.active{background:#2563eb;color:#fff;border-color:#2563eb}
+.capacity-game-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}.capacity-bottle-board{background:linear-gradient(180deg,#f4fbff,#fff);border:1px solid #cfe7ff;border-radius:24px;padding:16px;text-align:center}.selected-bottle-name{font-size:18px;font-weight:950;color:#1e3a8a}.big-learning-bottle{position:relative;width:170px;height:330px;margin:12px auto 10px;border:7px solid #8bb7f3;border-radius:34px 34px 44px 44px;background:rgba(255,255,255,.72);overflow:hidden;box-shadow:0 16px 35px rgba(37,99,235,.12)}.learning-neck{position:absolute;left:50%;transform:translateX(-50%);top:-21px;width:62px;height:30px;border:7px solid #8bb7f3;border-bottom:0;border-radius:13px 13px 0 0;background:#fff;z-index:2}.learning-liquid{position:absolute;left:0;right:0;bottom:15px;height:0;background:linear-gradient(180deg,#7dd3fc,#2563eb 72%,#1d4ed8);transition:height .35s}.learning-shine{position:absolute;left:20px;top:25px;width:13px;height:72%;border-radius:999px;background:rgba(255,255,255,.45);pointer-events:none}.learning-label{position:absolute;top:70px;left:16px;right:16px;padding:7px;border-radius:12px;background:rgba(255,255,255,.82);font-weight:950;color:#1e3a8a;z-index:3}.learning-marks{position:absolute;right:10px;top:84px;bottom:15px;width:74px;z-index:4;display:flex;flex-direction:column;justify-content:space-between;font-size:11px;font-weight:950;color:#1e293b;pointer-events:none}.learning-marks span{display:flex;align-items:center;gap:5px;justify-content:flex-end;line-height:1;background:rgba(255,255,255,.72);padding:2px 4px 2px 3px;border-radius:7px}.learning-marks i{display:block;width:18px;border-top:3px solid #475569}.capacity-readout{font-size:24px;font-weight:1000}.capacity-progress{height:12px;border-radius:999px;background:#dbeafe;overflow:hidden;max-width:280px;margin:10px auto 4px}.capacity-progress div{height:100%;width:0;background:linear-gradient(90deg,#60a5fa,#2563eb);transition:width .35s}.capacity-actions{background:#fff;border:1px solid var(--border);border-radius:24px;padding:18px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px}.capacity-action-icon{font-size:54px}.capacity-mission-card{margin-top:14px}
+.length-hero{background:linear-gradient(135deg,#fff7ed,#eef2ff)}
+.one-cm-board{background:#f8fafc;border:1px solid var(--border);border-radius:20px;padding:16px}.cm-title{text-align:center;font-size:22px;color:#92400e;margin-bottom:12px}.one-cm-strip{height:66px;display:grid;grid-template-columns:repeat(10,1fr);gap:2px;max-width:700px;margin:auto}.one-mm-cell{background:linear-gradient(180deg,#fde68a,#f59e0b);border:2px solid #d97706;border-radius:6px;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#78350f;font-weight:1000}.one-mm-cell small{font-size:8px}.cm-under-labels{max-width:700px;margin:8px auto 0;display:flex;justify-content:space-between;color:#78350f;font-weight:900;font-size:12px}.cm-equation{display:flex;justify-content:center;gap:18px;align-items:center;margin-top:14px;font-size:28px}.cm-equation b{padding:8px 14px;border-radius:14px;background:#fff;border:1px solid var(--border)}
+.clear-ruler-wrap{overflow-x:auto;padding-bottom:6px}.clear-ruler{min-width:690px;height:120px;position:relative;border-bottom:8px solid #92400e;background:linear-gradient(180deg,#fef3c7,#fde68a);border-radius:10px;padding:0 6px}.clear-ruler:before{content:"";position:absolute;left:0;right:0;top:72px;border-top:2px solid rgba(120,53,18,.45)}.clear-ruler-major{position:absolute;top:28px;transform:translateX(-50%);height:60px;text-align:center}.clear-ruler-major i{display:block;width:4px;height:42px;background:#78350f;margin:auto}.clear-ruler-major b{display:block;font-size:18px;color:#78350f;line-height:18px;margin-top:3px}.clear-ruler-major span{display:block;font-size:10px;font-weight:900;color:#92400e}.clear-ruler-caption{text-align:center;position:absolute;left:0;right:0;bottom:-28px;font-size:12px;color:#92400e;font-weight:900}.ruler-reading{margin-top:34px;text-align:center;font-size:26px;font-weight:1000;color:#4c1d95}
+.build-length-card{background:linear-gradient(135deg,#fffdf7,#eef8ff)}.build-target{font-size:26px;font-weight:1000;text-align:center;color:#1d4ed8;margin:8px 0 12px}.build-visual{border:1px solid var(--border);background:#fff;border-radius:18px;padding:14px;overflow:hidden}.build-object{height:44px;min-width:8px;border-radius:12px;background:linear-gradient(90deg,#c4b5fd,#7c3aed);color:#fff;display:flex;align-items:center;justify-content:flex-end;padding:0 10px;font-weight:1000;white-space:nowrap;transition:width .25s}.build-ruler{display:flex;gap:5px;overflow-x:auto;margin-top:14px;padding-bottom:4px}.build-cm-group{min-width:92px;border:1px solid #ddd6fe;border-radius:12px;padding:7px;background:#f5f3ff}.build-cm-label{text-align:center;font-weight:1000;color:#5b21b6;margin-bottom:5px}.build-mm-row{display:grid;grid-template-columns:repeat(10,1fr);gap:1px}.build-mm-row i{height:22px;background:#e9d5ff;border-radius:2px}.build-mm-row i.filled{background:#7c3aed}.build-controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}.length-add-btn{padding:12px;border-radius:14px;font-weight:1000;border:2px solid}.cm-add{background:#ede9fe;border-color:#a78bfa;color:#5b21b6}.mm-add{background:#dcfce7;border-color:#86efac;color:#166534}.build-current{text-align:center;font-size:20px;font-weight:950;margin-top:12px}
+
+.clear-ruler-minor{position:absolute;top:48px;width:2px;height:18px;background:#a16207;transform:translateX(-50%)}
+.length-sub-btn{padding:12px;border-radius:14px;font-weight:1000;border:2px solid}.cm-sub{background:#fef3c7;border-color:#fbbf24;color:#92400e}.mm-sub{background:#fce7f3;border-color:#f9a8d4;color:#9d174d}
+@media(max-width:950px){.bottle-row-simple{grid-template-columns:repeat(3,1fr)}.pour-choices-simple{grid-template-columns:repeat(5,1fr)}.capacity-game-grid{grid-template-columns:1fr}.build-ruler{overflow-x:auto}}
+
+/* Masa: jedna plansza robocza — wybór + zadanie + waga obok siebie */
+.mass-workbench{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(420px,1.28fr);gap:14px;align-items:start}
+.mass-inventory{display:grid;gap:14px}
+.mass-tools-card{padding:13px}
+.mass-help{margin:0 0 9px}
+.mass-food-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.mass-food-grid .food-card{min-height:96px;padding:6px;border-radius:14px}
+.mass-food-grid .food-svg{width:52px;height:52px}
+.mass-food-grid .mass-chip{font-size:10px;padding:3px 6px}
+.mass-weight-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.mass-weight-grid .weight-btn{padding:8px 4px;border-radius:13px}
+.mass-weight-grid .weight-visual{width:38px;height:24px}
+.mass-scale-card{position:sticky;top:10px}
+.mass-task-compact{padding:12px 14px;margin-bottom:10px}
+.mass-task-text{font-size:21px;font-weight:950;line-height:1.18;margin-top:3px}
+.mass-scale-stage{min-height:360px;padding:8px}
+.compact-scale{height:325px;max-width:720px}
+.compact-scale .beam{top:58px;height:15px}
+.compact-scale .pivot{top:66px;border-left-width:20px;border-right-width:20px;border-top-width:38px}
+.compact-scale .pan-area{top:86px;height:215px;width:37%}
+.compact-scale .rope{height:58px}
+.compact-scale .pan-bowl{top:50px;min-height:112px;border-width:4px;border-top-width:6px;padding:8px;gap:5px}
+.compact-scale .pan-total{font-size:14px;padding:5px 8px}
+.compact-scale .scale-message{top:4px;font-size:13px;padding:6px 9px}
+.compact-scale .scale-item{font-size:11px;padding:3px 5px}
+@media(max-width:980px){.mass-workbench{grid-template-columns:1fr}.mass-scale-card{position:relative;top:auto}.mass-scale-stage{min-height:390px}.compact-scale{height:350px}}
+
+@media(max-width:650px){.bottle-row-simple{grid-template-columns:repeat(3,1fr)}.simple-bottle-choice{min-height:102px}.pour-choices-simple{grid-template-columns:repeat(5,1fr)}.simple-pour-btn{font-size:13px;padding:9px 4px}.big-learning-bottle{width:150px;height:290px}.capacity-tip-row{grid-template-columns:1fr 1fr 1fr}.one-cm-strip{height:54px}.one-mm-cell{font-size:12px}.cm-equation{font-size:22px}.clear-ruler{min-width:640px}.build-controls{grid-template-columns:1fr 1fr}.build-controls .ghost{grid-column:1/-1}}
+</style></head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><div class="brand-icon"><img src="favicon.png" alt="Nauka z Olą"></div><div><h1>Nauka z Olą</h1><p>Miary, wagi i pieniądze – nauka przez zabawę</p></div></div>
+    <div class="score">🏆 Punkty: <b id="score">0</b></div>
+  </header>
+
+  <div class="welcome-banner">👋 <b>Cześć Olu!</b> Miłej nauki! Dzisiaj pobawimy się w litry, kilogramy, centymetry i pieniądze.</div>
+
+  <nav class="tabs">
+    <button class="tab active" data-page="capacity">🧃 Litry</button>
+    <button class="tab" data-page="mass">⚖️ Waga</button>
+    <button class="tab" data-page="length">📏 Linijka</button>
+    <button class="tab" data-page="money">🛒 Sklep</button>
+    <button class="tab" data-page="convert">🔄 Zamiana</button>
+    <button class="tab" data-page="tasks">🏆 Zadania</button>
+  </nav>
+
+  <section class="page active" id="page-capacity">
+    <div class="hero capacity-hero"><h2>🧃 Litry – napełnij butelkę</h2><p>Wybierz butelkę, wybierz ile ml dolewamy i obserwuj poziom wody. <b>Bez przelewania między dwiema butelkami – tylko prosta zabawa z ilością.</b></p></div>
+
+    <div class="card">
+      <h3>1. Wybierz pojemność butelki</h3>
+      <div class="bottle-row-simple" id="simpleBottlePicker"></div>
+      <div class="capacity-tip-row">
+        <div class="capacity-fact"><b>250 ml</b><span>¼ litra</span></div>
+        <div class="capacity-fact"><b>500 ml</b><span>½ litra</span></div>
+        <div class="capacity-fact"><b>1000 ml</b><span>1 litr</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>2. Ile ml wlejemy?</h3>
+      <div class="pour-choices-simple" id="simplePourChoices"></div>
+      <div class="capacity-game-grid">
+        <div class="capacity-bottle-board" id="capacityBottleBoard">
+          <div class="selected-bottle-name" id="selectedBottleName"></div>
+          <div class="big-learning-bottle" id="learningBottle">
+            <div class="learning-neck"></div>
+            <div class="learning-liquid" id="learningLiquid"></div>
+            <div class="learning-shine"></div>
+            <div class="learning-marks" id="learningMarks"></div>
+            <div class="learning-label" id="learningLabel"></div>
+          </div>
+          <div class="capacity-readout" id="capacityReadout"></div>
+          <div class="capacity-progress"><div id="capacityProgressBar"></div></div>
+          <div class="small muted" id="capacityProgressText"></div>
+        </div>
+        <div class="capacity-actions">
+          <div class="capacity-action-icon">💧</div>
+          <div class="big" id="capacityActionText">Wybierz ilość wody</div>
+          <button class="primary" id="pourIntoBottle">Wlej wybraną ilość</button>
+          <button class="ghost" id="emptyBottle">Opróżnij butelkę</button>
+          <div class="status" id="simpleCapacityStatus">Wybierz butelkę i ilość. Każde kliknięcie dolewa wybraną liczbę mililitrów.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="target-task capacity-mission-card">
+      <div class="small muted">🎯 Misja</div>
+      <div class="big" id="simpleCapacityTask"></div>
+      <div class="small muted" id="simpleCapacityTaskHint"></div>
+      <div class="row" style="margin-top:10px"><button class="primary" id="newSimpleCapacityTask">Nowa misja</button><button class="secondary" id="checkSimpleCapacityTask">Sprawdź</button></div>
+      <div id="simpleCapacityTaskResult" class="small" style="margin-top:9px"></div>
+    </div>
+  </section>
+  <section class="page" id="page-mass">
+    <div class="hero"><h2>⚖️ Waga – zróbmy to na jednej planszy</h2><p>Wybierz produkt po lewej, dobierz odważniki i od razu obserwuj szalkę po prawej. Wszystko, czego potrzebujesz do jednego zadania, jest teraz razem.</p></div>
+    <div class="mass-workbench">
+      <div class="mass-inventory">
+        <div class="card mass-tools-card">
+          <div class="between"><h3>🥕 Produkty</h3><button class="ghost" id="clearFoods">Wyczyść</button></div>
+          <p class="small muted mass-help">Kliknij produkt, aby położyć go na lewej szalce.</p>
+          <div class="food-grid mass-food-grid" id="foodGrid"></div>
+        </div>
+        <div class="card mass-tools-card">
+          <h3>🪨 Odważniki</h3>
+          <p class="small muted mass-help">Kliknij odważnik, aby dodać go na prawą szalkę.</p>
+          <div class="weight-grid2 mass-weight-grid" id="weightGrid"></div>
+        </div>
+      </div>
+
+      <div class="mass-scale-card">
+        <div class="scale-task mass-task-compact">
+          <div class="between"><div><div class="small muted">🎯 Zadanie</div><div id="massTask" class="mass-task-text"></div></div><div class="row"><button class="primary" id="newMassTask">Nowe</button><button class="secondary" id="checkMassTask">Sprawdź</button></div></div>
+          <div id="massTaskResult" class="small" style="margin-top:8px"></div>
+        </div>
+        <div class="scale-stage mass-scale-stage">
+          <div class="scale compact-scale" id="scale">
+            <div class="scale-message" id="scaleMessage">⚖️ Gotowa</div>
+            <div class="beam" id="beam"></div><div class="pivot"></div>
+            <div class="pan-area left"><div class="rope"></div><div class="pan-bowl" id="leftPan"></div><div class="pan-total" id="leftTotal">0 g</div></div>
+            <div class="pan-area right"><div class="rope"></div><div class="pan-bowl" id="rightPan"></div><div class="pan-total" id="rightTotal">0 g</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-length">
+    <div class="hero length-hero"><h2>📏 Centymetry i milimetry</h2><p>Tutaj nie trzeba mierzyć linijką. Najpierw zobaczysz, <b>z czego składa się 1 cm</b>, a potem samodzielnie zbudujesz długość.</p></div>
+
+    <div class="card">
+      <h3>🔎 Zobacz 1 centymetr</h3>
+      <div class="one-cm-board">
+        <div class="cm-title"><b>1 centymetr</b></div>
+        <div class="one-cm-strip" id="oneCmStrip"></div>
+        <div class="cm-under-labels"><span>0 mm</span><span>5 mm</span><span>10 mm</span></div>
+        <div class="cm-equation"><b>1 cm</b><span>=</span><b>10 mm</b></div>
+      </div>
+      <p class="length-tip">Każdy mały kafelek to <b>1 mm</b>. Dziesięć kafelków daje dokładnie <b>1 cm</b>.</p>
+    </div>
+
+    <div class="card">
+      <h3>📐 Wirtualna linijka – teraz naprawdę widać centymetry</h3>
+      <div class="clear-ruler-wrap">
+        <div class="clear-ruler" id="clearRuler"></div>
+      </div>
+      <div class="ruler-reading" id="rulerReading">0 cm = 0 mm</div>
+    </div>
+
+    <div class="card build-length-card">
+      <h3>🎯 Zbuduj długość</h3>
+      <div class="build-target" id="buildLengthQuestion"></div>
+      <div class="build-visual">
+        <div class="build-object" id="buildObject"></div>
+        <div class="build-ruler" id="buildRuler"></div>
+      </div>
+      <div class="build-controls">
+        <button class="length-add-btn cm-add" id="addOneCm">＋ 1 cm</button>
+        <button class="length-add-btn mm-add" id="addOneMm">＋ 1 mm</button>
+        <button class="length-sub-btn cm-sub" id="subOneCm">− 1 cm</button>
+        <button class="length-sub-btn mm-sub" id="subOneMm">− 1 mm</button>
+        <button class="ghost" id="resetBuildLength">↺ Od początku</button>
+      </div>
+      <div class="build-current" id="buildCurrent">Masz: 0 mm</div>
+      <div class="status" id="buildLengthResult">Klikaj +1 cm i +1 mm, aż osiągniesz cel.</div>
+      <div class="row" style="margin-top:9px"><button class="primary" id="newBuildLength">Nowe zadanie</button></div>
+    </div>
+  </section>
+  <section class="page" id="page-money">
+    <div class="hero"><h2>🛒 Sklep – wybierz produkt i zapłać</h2><p>Masz prawdziwy sklep, prawdziwe ceny i prawdziwe monety. Kliknij produkt, potem klikaj monety i banknoty. W kasie zobaczysz sumę.</p></div>
+    <div class="card money-learning"><h3>🪙 Zamiana złotówek na grosze</h3><p>Zapamiętaj: <b>1 zł = 100 gr</b>. Wpisz kwotę i zobacz, ile to groszy.</p><div class="row"><input id="moneyLearnInput" type="number" step="0.01" value="4.30"><button class="primary" id="moneyLearnBtn">Pokaż grosze</button></div><div class="money-conversion-visual" id="moneyLearnOut">4,30 zł = <b>430 gr</b></div></div>
+    <div class="shop-layout">
+      <div class="card"><div class="between"><h3>🛍️ Półka sklepowa</h3><button class="ghost" id="newMoneyTask">Losuj klienta</button></div><div class="shelf" id="productShelf"></div></div>
+      <div class="cashier"><div class="shop-mode"><button class="active" data-money-mode="exact">Zapłać dokładnie</button><button data-money-mode="change">Wydaj resztę</button></div><div class="cart-task"><div class="small muted">Klient wybiera:</div><div id="moneyTaskText" style="font-weight:950;font-size:20px;margin-top:3px"></div><div id="moneyTargetText" class="small muted" style="margin-top:3px"></div></div><div class="selected-product" style="margin-top:10px"><div id="selectedProductVisual" style="font-size:42px">🛒</div><div><div class="small muted">Wybrany produkt</div><div id="selectedProductName" style="font-weight:950"></div><div id="selectedProductPrice" class="product-price"></div></div></div><h3 style="margin-top:12px">👛 Monety i banknoty</h3><div class="wallet" id="wallet"></div><div class="register"><div class="between"><b>Kasa</b><button class="ghost" id="clearMoney">Wyczyść</button></div><div class="money-pieces" id="moneyPieces"></div><div class="money-total" id="moneyTotal">0,00 zł</div><div class="row" style="margin-top:7px"><button class="primary" id="checkMoney">Sprawdź płatność</button><span id="moneyResult" class="small"></span></div></div></div>
+    </div>
+  </section>
+
+  <section class="page" id="page-convert">
+    <div class="hero"><h2>🔄 Zamieniaj jednostki</h2><p>Każdy dział ma osobną przeliczarkę, żeby niczego nie mieszać.</p></div>
+    <div class="grid2">
+      <div class="card"><h3>🧃 Pojemność</h3><div class="row"><input id="cvCap" inputmode="decimal" type="number" value="2" style="flex:1;padding:12px;border:1px solid var(--border);border-radius:12px"><select id="cvCapUnit" style="padding:12px;border:1px solid var(--border);border-radius:12px"><option value="l">l</option><option value="ml">ml</option></select><button class="primary" id="cvCapBtn">Zamień</button></div><div class="status ok" id="cvCapOut">2 l = 2000 ml</div></div>
+      <div class="card"><h3>⚖️ Masa</h3><div class="row"><input id="cvMass" inputmode="decimal" type="number" value="1500" style="flex:1;padding:12px;border:1px solid var(--border);border-radius:12px"><select id="cvMassUnit" style="padding:12px;border:1px solid var(--border);border-radius:12px"><option value="g">g</option><option value="kg">kg</option></select><button class="primary" id="cvMassBtn">Zamień</button></div><div class="status ok" id="cvMassOut">1500 g = 1 kg 500 g</div></div>
+      <div class="card"><h3>📏 Długość</h3><div class="row"><input id="cvLen" type="number" value="125" style="flex:1;padding:12px;border:1px solid var(--border);border-radius:12px"><select id="cvLenFrom" style="padding:12px;border:1px solid var(--border);border-radius:12px"><option>cm</option><option>m</option><option>mm</option></select><span>→</span><select id="cvLenTo" style="padding:12px;border:1px solid var(--border);border-radius:12px"><option>mm</option><option>cm</option><option>m</option><option>km</option></select><button class="primary" id="cvLenBtn">Zamień</button></div><div class="status ok" id="cvLenOut">125 cm = 1250 mm</div></div>
+      <div class="card"><h3>💰 Pieniądze</h3><div class="row"><input id="cvMoney" type="number" step="0.01" value="4.30" style="flex:1;padding:12px;border:1px solid var(--border);border-radius:12px"><span>zł</span><button class="primary" id="cvMoneyBtn">Na grosze</button></div><div class="status ok" id="cvMoneyOut">4,30 zł = 430 gr</div></div>
+    </div>
+  </section>
+
+  <section class="page" id="page-tasks">
+    <div class="hero"><h2>🏆 Wielki trening</h2><p>Dużo zadań do ćwiczenia: przeliczanie, działania na dwóch jednostkach, reszta w sklepie, masa, długość i pojemność. Klikaj <b>Następne</b> i ćwicz dalej.</p></div>
+    <div class="task-filters" id="taskFilters"><button class="task-filter-btn active" data-filter="all">Wszystkie</button><button class="task-filter-btn" data-filter="capacity">🧃 Litry</button><button class="task-filter-btn" data-filter="mass">⚖️ Waga</button><button class="task-filter-btn" data-filter="length">📏 Długość</button><button class="task-filter-btn" data-filter="money">💰 Pieniądze</button></div>
+    <div class="test-panel card"><div class="between"><h3>📝 Test</h3><span id="bestScoreLabel" class="pill"></span></div><p>Test ma 10 pytań. Na koniec dostajesz ocenę, punkty i nagrodę.</p><button class="primary" id="startTest">Rozpocznij test</button><div id="testResult" class="status" style="display:none;margin-top:10px"></div></div>
+    <div class="task-box"><div class="between"><div class="pill" id="taskType">Trening</div><div class="small muted" id="taskCounter">Zadanie 1</div></div><div class="progress" style="margin-top:10px"><span id="taskProgress"></span></div><div class="task-question" id="taskQuestion"></div><div class="task-options" id="taskOptions"></div><div class="status" id="taskFeedback" style="display:none"></div><div class="task-controls"><div class="score">✅ Dobre w tej serii: <b id="sessionCorrect">0</b></div><div class="row"><button class="secondary" id="shuffleTasks">Losuj nową serię</button><button class="primary" id="nextTask">Następne →</button></div></div></div>
+  </section>
+</div>
+
+<div class="celebration" id="celebration" aria-live="polite"><div class="celebration-inner"><div class="celebration-stars">★ ✨ ★</div><div id="celebrationText">Brawo Olu!</div><div class="celebration-sub" id="celebrationSub">Świetnie Ci poszło!</div></div></div>
+<script>
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const fmt=n=>Number(n).toLocaleString('pl-PL',{maximumFractionDigits:3});
+const moneyFmt=g=>(g/100).toLocaleString('pl-PL',{minimumFractionDigits:2,maximumFractionDigits:2})+' zł';
+let score=Number(localStorage.getItem('miary_score_v5')||0);let best=Number(localStorage.getItem('miary_best_v5')||0); $('#score').textContent=score;
+let celebrationTimer=null;
+function celebrate(message='Brawo Olu!',sub='Świetnie Ci poszło!'){const box=$('#celebration');if(!box)return;$('#celebrationText').textContent=message;$('#celebrationSub').textContent=sub;box.classList.remove('show');void box.offsetWidth;box.classList.add('show');clearTimeout(celebrationTimer);celebrationTimer=setTimeout(()=>box.classList.remove('show'),1000)}
+function addPoints(n){score+=n;localStorage.setItem('miary_score_v5',String(score));$('#score').textContent=score;celebrate('Brawo Olu!',`+${n} pkt — świetna robota!`)}
+$('#bestScoreLabel').textContent=`Najlepszy wynik: ${best} pkt`;
+
+/* NAV */
+$$('.tab').forEach(b=>b.onclick=()=>{$$('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');$$('.page').forEach(p=>p.classList.remove('active'));$('#page-'+b.dataset.page).classList.add('active')});
+
+/* CAPACITY – simple fill-the-bottle game */
+const SIMPLE_CAP=[500,1000,1500,2000,3000,5000];
+const SIMPLE_POURS=[50,100,150,200,250,300,400,500,750,1000];
+let simpleBottle={cap:1000,vol:0};
+let simplePour=250;
+let simpleCapacityTask={target:1000,done:false};
+function simpleCapLabel(v){return v>=1000?((v%1000===0)?v/1000:(v/1000).toLocaleString('pl-PL'))+' l':v+' ml'}
+function renderSimpleBottlePicker(){
+  $('#simpleBottlePicker').innerHTML=SIMPLE_CAP.map(v=>`<button class="simple-bottle-choice ${v===simpleBottle.cap?'active':''}" data-v="${v}"><span class="simple-bottle-icon"><span class="mini-water"></span></span><b>${simpleCapLabel(v)}</b></button>`).join('');
+  $$('#simpleBottlePicker .simple-bottle-choice').forEach(b=>b.onclick=()=>{simpleBottle.cap=Number(b.dataset.v);simpleBottle.vol=Math.min(simpleBottle.vol,simpleBottle.cap);renderSimpleCapacity();setSimpleCapacityStatus(`Wybrałaś butelkę ${simpleCapLabel(simpleBottle.cap)}. Teraz wybierz, ile ml dolewamy.`,'ok')});
+}
+function renderSimplePourChoices(){
+  $('#simplePourChoices').innerHTML=SIMPLE_POURS.map(v=>`<button class="simple-pour-btn ${v===simplePour?'active':''}" data-v="${v}">${v} ml</button>`).join('');
+  $$('#simplePourChoices .simple-pour-btn').forEach(b=>b.onclick=()=>{simplePour=Number(b.dataset.v);$('#capacityActionText').textContent=`Dolej ${simplePour} ml`;setSimpleCapacityStatus(`Wybrano ${simplePour} ml. Kliknij „Wlej wybraną ilość”.`,'ok');renderSimplePourChoices()});
+}
+function renderLearningBottle(){
+  const pct=simpleBottle.cap?simpleBottle.vol/simpleBottle.cap*100:0;
+  const bottleEl=$('#learningBottle');
+  const liquidEl=$('#learningLiquid');
+  const usable=Math.max(0,bottleEl.clientHeight-84-15);
+  liquidEl.style.height=(usable*pct/100)+'px';
+  liquidEl.style.bottom='15px';
+  $('#learningLabel').textContent=simpleCapLabel(simpleBottle.cap);
+  $('#capacityReadout').textContent=`${simpleCapLabel(simpleBottle.vol)} z ${simpleCapLabel(simpleBottle.cap)}`;
+  $('#capacityProgressBar').style.width=pct+'%';
+  $('#capacityProgressText').textContent=simpleBottle.vol===simpleBottle.cap?'Pełna!':'Wypełniona w '+Math.round(pct)+'%';
+  $('#selectedBottleName').textContent=`Butelka ${simpleCapLabel(simpleBottle.cap)}`;
+  const step=simpleBottle.cap<=1000?250:(simpleBottle.cap<=2000?500:1000),marks=[];
+  for(let x=simpleBottle.cap;x>=0;x-=step) marks.push(x);
+  if(marks[marks.length-1]!==0)marks.push(0);
+  $('#learningMarks').innerHTML=marks.map(v=>`<span><i></i>${simpleCapLabel(v)}</span>`).join('');
+}
+function renderSimpleCapacity(){renderSimpleBottlePicker();renderSimplePourChoices();renderLearningBottle();}
+function setSimpleCapacityStatus(msg,kind='warn'){const e=$('#simpleCapacityStatus');e.className='status '+kind;e.textContent=msg}
+$('#pourIntoBottle').onclick=()=>{
+  const space=simpleBottle.cap-simpleBottle.vol;
+  if(simplePour>space){setSimpleCapacityStatus(`Tego się nie da wlać – zostało tylko ${simpleCapLabel(space)} wolnego miejsca.`,'bad');return}
+  simpleBottle.vol+=simplePour;
+  setSimpleCapacityStatus(`Brawo! Dolałaś ${simplePour} ml. W butelce jest teraz ${simpleCapLabel(simpleBottle.vol)}.`,'ok');
+  $('#capacityActionText').textContent=simpleBottle.vol===simpleBottle.cap?'Butelka jest pełna!':'Możesz dolać jeszcze trochę';
+  renderSimpleCapacity();
+  if(simpleBottle.vol===simpleCapacityTask.target&&!simpleCapacityTask.done){simpleCapacityTask.done=true;addPoints(5);$('#simpleCapacityTaskResult').textContent='Brawo Olu! Idealnie trafiłaś w cel. +5 punktów';$('#simpleCapacityTaskResult').style.color='#166534';}
+};
+$('#emptyBottle').onclick=()=>{simpleBottle.vol=0;renderSimpleCapacity();setSimpleCapacityStatus('Butelka jest pusta. Możesz zacząć od początku.','warn')};
+function newSimpleCapacityTask(){
+  const opts=[500,750,1000,1250,1500,1750,2000,2500,3000,4000];
+  simpleCapacityTask.target=opts[Math.floor(Math.random()*opts.length)];simpleCapacityTask.done=false;
+  const cap=Math.max(1000,simpleCapacityTask.target);
+  simpleBottle={cap:cap>=3000?5000:(cap>=2000?3000:Math.max(1000,cap)),vol:0};
+  $('#simpleCapacityTask').textContent=`Napełnij butelkę dokładnie do ${simpleCapLabel(simpleCapacityTask.target)}.`;
+  $('#simpleCapacityTaskHint').textContent='Podpowiedź: możesz używać po 100, 250, 500 ml itd. Nie musisz zrobić tego jednym ruchem.';
+  $('#simpleCapacityTaskResult').textContent='';
+  renderSimpleCapacity();
+  $('#capacityActionText').textContent='Wybierz ilość wody';
+  setSimpleCapacityStatus('Gotowe! Zacznij dolewać po wybranej liczbie ml.','ok');
+}
+$('#newSimpleCapacityTask').onclick=newSimpleCapacityTask;
+$('#checkSimpleCapacityTask').onclick=()=>{
+  if(simpleBottle.vol===simpleCapacityTask.target){
+    if(!simpleCapacityTask.done){simpleCapacityTask.done=true;addPoints(5);$('#simpleCapacityTaskResult').textContent='Brawo Olu! Cel osiągnięty. +5 punktów';$('#simpleCapacityTaskResult').style.color='#166534'} else $('#simpleCapacityTaskResult').textContent='Misja już zaliczona!';
+  } else $('#simpleCapacityTaskResult').textContent=`Masz ${simpleCapLabel(simpleBottle.vol)}. Brakuje ${simpleCapLabel(Math.max(0,simpleCapacityTask.target-simpleBottle.vol))}.`;
+};
+newSimpleCapacityTask();
+
+/* FOOD ILLUSTRATIONS */
+const FOODS=[
+ {id:'apple',name:'Jabłko',g:180,color:'#ef4444'},
+ {id:'pear',name:'Gruszka',g:160,color:'#84cc16'},
+ {id:'orange',name:'Pomarańcza',g:220,color:'#fb923c'},
+ {id:'banana',name:'Banan',g:120,color:'#facc15'},
+ {id:'carrot',name:'Marchewka',g:90,color:'#f97316'},
+ {id:'tomato',name:'Pomidor',g:150,color:'#ef4444'},
+ {id:'potato',name:'Ziemniak',g:200,color:'#d6b48a'},
+ {id:'cucumber',name:'Ogórek',g:300,color:'#22c55e'},
+ {id:'pepper',name:'Papryka',g:140,color:'#dc2626'},
+ {id:'pumpkin',name:'Dynia',g:1200,color:'#f59e0b'},
+ {id:'watermelon',name:'Arbuz',g:2500,color:'#22c55e'},
+ {id:'bag1',name:'Worek ziemniaków',g:1000,color:'#a16207'},
+ {id:'bag2',name:'Worek mąki',g:2000,color:'#d6d3d1'},
+ {id:'bag3',name:'Skrzynka warzyw',g:3000,color:'#16a34a'},
+ {id:'lemon',name:'Cytryna',g:120,color:'#fde047'}
+];
+function foodSvg(f){const c=f.color; const base=f.id==='bag1'||f.id==='bag2'||f.id==='bag3'?`<path d="M16 18 L60 18 L56 58 Q38 65 20 58Z" fill="${c}" stroke="#64748b" stroke-width="3"/><path d="M18 18 Q38 9 58 18" fill="none" stroke="#475569" stroke-width="4"/><text x="38" y="43" text-anchor="middle" font-size="12" font-weight="900" fill="#334155">${f.g/1000} KG</text>`:f.id==='banana'?`<path d="M12 40 Q40 5 62 25 Q44 47 15 48" fill="${c}" stroke="#ca8a04" stroke-width="3"/>`:f.id==='carrot'?`<path d="M20 20 L48 18 L39 55 Q31 67 22 51Z" fill="${c}" stroke="#c2410c" stroke-width="3"/><path d="M30 18 Q27 7 34 5 M37 18 Q42 6 48 5" fill="none" stroke="#16a34a" stroke-width="4" stroke-linecap="round"/>`:f.id==='watermelon'?`<path d="M8 38 Q38 7 68 38 Q38 58 8 38Z" fill="#16a34a" stroke="#14532d" stroke-width="3"/><path d="M13 38 Q38 15 63 38" fill="#f8fafc"/><path d="M16 38 Q38 21 60 38" fill="#ef4444"/>`:f.id==='pumpkin'?`<circle cx="38" cy="34" r="26" fill="${c}" stroke="#c2410c" stroke-width="3"/><path d="M25 12 Q38 37 50 11 M16 21 Q38 40 60 20" fill="none" stroke="#ea580c" stroke-width="3"/><rect x="34" y="5" width="8" height="11" rx="3" fill="#166534"/>`:f.id==='cucumber'?`<rect x="13" y="22" width="53" height="24" rx="12" fill="${c}" stroke="#166534" stroke-width="3"/><path d="M22 28v12 M34 25v16 M47 28v12 M57 27v13" stroke="#86efac" stroke-width="2"/>`:f.id==='pear'?`<path d="M38 8 C25 8 30 22 22 28 C8 38 15 59 38 58 C61 59 68 37 54 28 C46 22 51 8 38 8Z" fill="${c}" stroke="#4d7c0f" stroke-width="3"/><path d="M38 8 Q42 1 49 4" fill="none" stroke="#166534" stroke-width="4"/>`:f.id==='lemon'?`<ellipse cx="38" cy="35" rx="28" ry="18" transform="rotate(-18 38 35)" fill="${c}" stroke="#ca8a04" stroke-width="3"/>`:f.id==='pepper'?`<path d="M22 14 Q38 5 54 14 L59 36 Q50 55 38 57 Q26 55 17 36Z" fill="${c}" stroke="#991b1b" stroke-width="3"/><path d="M38 14v-7 M38 7q8-5 13 0" fill="none" stroke="#166534" stroke-width="4"/>`:f.id==='potato'?`<path d="M15 34 Q13 16 31 12 Q52 8 61 28 Q67 45 51 54 Q34 63 21 52 Q13 46 15 34Z" fill="${c}" stroke="#8b5e34" stroke-width="3"/><circle cx="28" cy="28" r="2" fill="#8b5e34"/><circle cx="45" cy="42" r="2" fill="#8b5e34"/>`:f.id==='tomato'?`<circle cx="38" cy="36" r="25" fill="${c}" stroke="#b91c1c" stroke-width="3"/><path d="M38 13l-6-6 6 10 8-9-3 9 10-2-9 8" fill="#16a34a"/>`:f.id==='orange'?`<circle cx="38" cy="36" r="24" fill="${c}" stroke="#c2410c" stroke-width="3"/><circle cx="30" cy="28" r="2" fill="#fff" opacity=".4"/><circle cx="45" cy="41" r="2" fill="#fff" opacity=".35"/>`:f.id==='banana'?'' : `<circle cx="38" cy="36" r="25" fill="${c}" stroke="#7f1d1d" stroke-width="3"/><path d="M34 12 Q38 5 44 7" stroke="#166534" stroke-width="4" fill="none"/>`; return `<svg class="food-svg" viewBox="0 0 76 76" aria-hidden="true">${base}</svg>`}
+let leftFoods=[];let rightWeights=[];let massTask={food:null,target:0};let massTaskDone=false;
+const WEIGHTS=[10,20,50,100,200,250,500,1000,2000];
+function massFmt(g){return g>=1000?`${Math.floor(g/1000)} kg${g%1000?' '+g%1000+' g':''}`:`${g} g`}
+function sumMass(a){return a.reduce((s,x)=>s+x,0)}
+function renderFoods(){$('#foodGrid').innerHTML=FOODS.map((f,i)=>`<button class="food-card" data-i="${i}">${foodSvg(f)}<div>${f.name}</div><span class="mass-chip">${massFmt(f.g)}</span></button>`).join('');$$('#foodGrid .food-card').forEach(b=>b.onclick=()=>{leftFoods.push(Number(b.dataset.i));renderScale()})}
+function renderWeights(){$('#weightGrid').innerHTML=WEIGHTS.map(w=>`<button class="weight-btn" data-w="${w}"><div class="weight-visual"></div>${massFmt(w)}</button>`).join('');$$('#weightGrid .weight-btn').forEach(b=>b.onclick=()=>{rightWeights.push(Number(b.dataset.w));renderScale()})}
+function foodChip(index){const f=FOODS[index];return `<button class="scale-item" data-left-remove="${index}"><span class="pan-food-name">${foodSvg(f).replace('class="food-svg"','class="pan-food-svg"')} ${f.name}</span><span>${massFmt(f.g)}</span></button>`}
+function weightChip(w,i){return `<button class="scale-item" data-right-remove="${i}">🪨 ${massFmt(w)}</button>`}
+function renderScale(){const lg=sumMass(leftFoods.map(i=>FOODS[i].g)),rg=sumMass(rightWeights);$('#leftPan').innerHTML=leftFoods.map(foodChip).join('')||'<span class="small muted">tu połóż owoce lub warzywa</span>';$('#rightPan').innerHTML=rightWeights.map(weightChip).join('')||'<span class="small muted">tu dodaj odważniki</span>';$('#leftTotal').textContent=massFmt(lg);$('#rightTotal').textContent=massFmt(rg);const diff=lg-rg;const deg=Math.max(-13,Math.min(13,-diff/50));$('#beam').style.transform=`rotate(${deg}deg)`;const balanced=lg===rg&&lg>0;$('#scaleMessage').textContent=balanced?'⚖️ IDEALNA RÓWNOWAGA!':diff>0?'⬅️ Lewa szalka cięższa':diff<0?'Prawa szalka cięższa ➡️':'⚖️ Gotowa';$('#scale').classList.toggle('balance',balanced);$$('[data-left-remove]').forEach(b=>b.onclick=()=>{const idx=leftFoods.indexOf(Number(b.dataset.leftRemove));if(idx>=0)leftFoods.splice(idx,1);renderScale()});$$('[data-right-remove]').forEach(b=>b.onclick=()=>{rightWeights.splice(Number(b.dataset.rightRemove),1);renderScale()})}
+function findRepresentable(target){const opts=[];function rec(i,sum,arr){if(sum===target&&arr.length){opts.push([...arr]);return}if(sum>=target||arr.length>=5)return;for(let j=i;j<WEIGHTS.length;j++)rec(j,sum+WEIGHTS[j],arr.concat(WEIGHTS[j]))}rec(0,0,[]);return opts[0]||[]}
+function newMassTask(){massTaskDone=false;leftFoods=[Math.floor(Math.random()*FOODS.length)];rightWeights=[];const base=FOODS[leftFoods[0]].g;const extra=[100,200,250,300,400,500,700,800,1000][Math.floor(Math.random()*9)];const target=base+extra;massTask={food:leftFoods[0],target};const combo=findRepresentable(extra); if(combo.length===0){massTask.target=base+500; rightWeights=[]} $('#massTask').textContent=`Zważ ${FOODS[massTask.food].name} na ${massFmt(massTask.target)}. Dobierz odważniki po prawej.`;$('#massTaskResult').textContent='';renderScale()}
+$('#clearFoods').onclick=()=>{leftFoods=[];rightWeights=[];renderScale()};$('#newMassTask').onclick=newMassTask;$('#checkMassTask').onclick=()=>{const l=sumMass(leftFoods.map(i=>FOODS[i].g)),r=sumMass(rightWeights);if(l===r&&l===massTask.target&&!massTaskDone){massTaskDone=true;addPoints(5);$('#massTaskResult').textContent='Brawo Olu! Waga się zgadza. +5';$('#massTaskResult').style.color='#166534'}else{$('#massTaskResult').textContent=`Lewa: ${massFmt(l)}, prawa: ${massFmt(r)}. Cel: ${massFmt(massTask.target)}.`;$('#massTaskResult').style.color='#991b1b'}};
+renderFoods();renderWeights();newMassTask();
+
+/* LENGTH – build cm and mm visually */
+let buildLength={cm:0,mm:0,targetCm:3,targetMm:4,done:false};
+function fmtLength(cm,mm){return mm===0?`${cm} cm`:`${cm} cm ${mm} mm`}
+function renderOneCm(){
+  $('#oneCmStrip').innerHTML=Array.from({length:10},(_,i)=>`<div class="one-mm-cell"><span>${i+1}</span><small>mm</small></div>`).join('');
+}
+function renderClearRuler(){
+  const parts=[];
+  for(let cm=0;cm<=10;cm++){
+    parts.push(`<div class="clear-ruler-major" style="left:${cm*10}%"><i></i><b>${cm}</b><span>cm</span></div>`);
+    if(cm<10){for(let mm=1;mm<10;mm++) parts.push(`<span class="clear-ruler-minor" style="left:${(cm*10)+mm}%"></span>`);}
+  }
+  $('#clearRuler').innerHTML=parts.join('')+'<div class="clear-ruler-caption">Każde pole między cyframi = 1 cm = 10 mm</div>';
+}
+function renderBuildRuler(){
+  const total=buildLength.cm*10+buildLength.mm;
+  $('#rulerReading').textContent=`${fmtLength(buildLength.cm,buildLength.mm)} = ${total} mm`;
+  const cells=[];
+  for(let cm=0;cm<8;cm++){
+    cells.push(`<div class="build-cm-group"><div class="build-cm-label">${cm+1} cm</div><div class="build-mm-row">${Array.from({length:10},(_,i)=>`<i class="${(cm<buildLength.cm||(cm===buildLength.cm&&i<buildLength.mm))?'filled':''}"></i>`).join('')}</div></div>`);
+  }
+  $('#buildRuler').innerHTML=cells.join('');
+  const px=Math.min(100,total/80*100);
+  $('#buildObject').style.width=Math.max(8,px)+'%';
+  $('#buildObject').textContent=total?`${total} mm`:'Start';
+  $('#buildCurrent').textContent=`Masz: ${fmtLength(buildLength.cm,buildLength.mm)} • ${total} mm`;
+}
+function normalizeBuild(){while(buildLength.mm>=10){buildLength.cm++;buildLength.mm-=10}while(buildLength.mm<0&&buildLength.cm>0){buildLength.cm--;buildLength.mm+=10}}
+function renderBuildLength(){normalizeBuild();renderBuildRuler();}
+function newBuildLength(){
+  const total=10+Math.floor(Math.random()*51); // 1 cm – 6 cm
+  buildLength={cm:Math.floor(total/10),mm:total%10,targetCm:Math.floor(total/10),targetMm:total%10,done:false};
+  buildLength.cm=0;buildLength.mm=0;
+  $('#buildLengthQuestion').textContent=`Zbuduj dokładnie ${buildLength.targetMm===0?buildLength.targetCm+' cm':buildLength.targetCm+' cm '+buildLength.targetMm+' mm'}.`;
+  $('#buildLengthResult').className='status';$('#buildLengthResult').textContent='Klikaj +1 cm i +1 mm, aż trafisz dokładnie w cel.';
+  renderBuildLength();
+}
+$('#addOneCm').onclick=()=>{buildLength.cm++;renderBuildLength();checkBuildLength()};
+$('#addOneMm').onclick=()=>{buildLength.mm++;normalizeBuild();renderBuildLength();checkBuildLength()};
+$('#subOneCm').onclick=()=>{if(buildLength.cm>0){buildLength.cm--;renderBuildLength();checkBuildLength()}};
+$('#subOneMm').onclick=()=>{if(buildLength.mm>0||buildLength.cm>0){buildLength.mm--;normalizeBuild();renderBuildLength();checkBuildLength()}};
+$('#resetBuildLength').onclick=()=>{buildLength.cm=0;buildLength.mm=0;buildLength.done=false;renderBuildLength();$('#buildLengthResult').className='status';$('#buildLengthResult').textContent='Start od zera. Pamiętaj: 10 mm = 1 cm.'};
+function checkBuildLength(){
+  if(buildLength.done)return;
+  if(buildLength.cm===buildLength.targetCm&&buildLength.mm===buildLength.targetMm){buildLength.done=true;addPoints(5);$('#buildLengthResult').className='status ok';$('#buildLengthResult').textContent='Brawo Olu! Zbudowałaś dokładnie tę długość. +5 punktów';}
+  else if(buildLength.cm*10+buildLength.mm>buildLength.targetCm*10+buildLength.targetMm){$('#buildLengthResult').className='status bad';$('#buildLengthResult').textContent='Ooo, za dużo. Użyj „Od początku” i spróbuj jeszcze raz.'}
+  else {$('#buildLengthResult').className='status';$('#buildLengthResult').textContent='Jeszcze trochę – patrz, jak rośnie długość.'}
+}
+$('#newBuildLength').onclick=newBuildLength;renderOneCm();renderClearRuler();newBuildLength();
+
+/* MONEY */
+const PRODUCTS=[['🍞','Chleb','4,50 zł',450],['🥛','Mleko','3,20 zł',320],['🍎','Jabłka','5,80 zł',580],['🧃','Sok','4,20 zł',420],['🥚','Jajka','8,90 zł',890],['🧀','Ser','12,50 zł',1250],['🍫','Czekolada','3,99 zł',399],['🍝','Makaron','2,80 zł',280],['🍌','Banany','6,40 zł',640],['🥕','Marchew','3,50 zł',350],['🧈','Masło','7,20 zł',720],['🥤','Woda','2,50 zł',250]];
+const MONEY=[1,2,5,10,20,50,100,200,500,1000,2000,5000,10000];let moneyPayment=[];let selectedProduct=0;let moneyMode='exact';let changeTarget=0;let customerPays=0;let moneyTaskDone=false;
+function renderProducts(){$('#productShelf').innerHTML=PRODUCTS.map((p,i)=>`<button class="product ${i===selectedProduct?'selected':''}" data-p="${i}"><div class="product-visual">${p[0]}</div><div class="product-name">${p[1]}</div><div class="product-price">${p[2]}</div></button>`).join('');$$('#productShelf .product').forEach(b=>b.onclick=()=>{selectedProduct=Number(b.dataset.p);newMoneyTask(false)})}
+function moneyLabel(v){return v<100?v+' gr':moneyFmt(v)}
+function moneyVisual(v){return v<=500?`<div class="coin-visual">${v<100?v:v/100+' zł'}</div>`:`<div class="note-visual">${moneyFmt(v)}</div>`}
+function renderWallet(){ $('#wallet').innerHTML=MONEY.map(v=>`<button class="money-btn" data-v="${v}">${moneyVisual(v)}<div>${moneyLabel(v)}</div></button>`).join('');$$('#wallet .money-btn').forEach(b=>b.onclick=()=>{moneyPayment.push(Number(b.dataset.v));renderPayment()})}
+function renderPayment(){const total=moneyPayment.reduce((a,b)=>a+b,0);$('#moneyPieces').innerHTML=moneyPayment.map((v,i)=>`<button class="mini-money" data-i="${i}">${moneyLabel(v)} ×</button>`).join('')||'<span class="small muted">Tutaj pojawią się wrzucone pieniądze.</span>';$$('#moneyPieces .mini-money').forEach(b=>b.onclick=()=>{moneyPayment.splice(Number(b.dataset.i),1);renderPayment()});$('#moneyTotal').textContent=moneyFmt(total)}
+function newMoneyTask(render=true){moneyTaskDone=false;moneyPayment=[];const p=PRODUCTS[selectedProduct];if(moneyMode==='exact'){$('#moneyTaskText').textContent=`Kup ${p[1]} za ${p[2]}.`;$('#moneyTargetText').textContent='Zapłać dokładnie tyle, ile kosztuje produkt.'}else{const payOptions=MONEY.filter(v=>v>p[3]&&v>=100);customerPays=payOptions[Math.floor(Math.random()*payOptions.length)]||2000;changeTarget=customerPays-p[3];$('#moneyTaskText').textContent=`Produkt: ${p[1]} za ${p[2]}.`;$('#moneyTargetText').textContent=`Klient daje ${moneyFmt(customerPays)}. Wydaj ${moneyFmt(changeTarget)} reszty.`}$('#selectedProductVisual').textContent=p[0];$('#selectedProductName').textContent=p[1];$('#selectedProductPrice').textContent=p[2];$('#moneyResult').textContent='';if(render){renderProducts();renderWallet();renderPayment()}}
+$$('[data-money-mode]').forEach(b=>b.onclick=()=>{$$('[data-money-mode]').forEach(x=>x.classList.remove('active'));b.classList.add('active');moneyMode=b.dataset.moneyMode;newMoneyTask(true)});$('#clearMoney').onclick=()=>{moneyPayment=[];renderPayment()};$('#newMoneyTask').onclick=()=>{selectedProduct=Math.floor(Math.random()*PRODUCTS.length);newMoneyTask(true)};$('#checkMoney').onclick=()=>{const total=moneyPayment.reduce((a,b)=>a+b,0);const target=moneyMode==='exact'?PRODUCTS[selectedProduct][3]:changeTarget;if(total===target&&!moneyTaskDone){moneyTaskDone=true;addPoints(4);$('#moneyResult').textContent='Brawo Olu! Dokładnie ta kwota. +4';$('#moneyResult').style.color='#166534'}else{$('#moneyResult').textContent=`Masz ${moneyFmt(total)}, a potrzeba ${moneyFmt(target)}.`;$('#moneyResult').style.color='#991b1b'}};
+renderProducts();renderWallet();newMoneyTask(false);
+
+/* MONEY LEARNING */
+$('#moneyLearnBtn').onclick=()=>{const n=Math.round((Number($('#moneyLearnInput').value)||0)*100);$('#moneyLearnOut').innerHTML=`${moneyFmt(n)} = <b>${n} gr</b>`};
+
+/* CONVERT */
+$('#cvCapBtn').onclick=()=>{celebrate('Brawo Olu!','Świetnie zamieniłaś litry na mililitry!');const n=Number($('#cvCap').value)||0,u=$('#cvCapUnit').value;$('#cvCapOut').textContent=u==='l'?`${fmt(n)} l = ${fmt(n*1000)} ml`:`${fmt(n)} ml = ${fmt(n/1000)} l`};
+$('#cvMassBtn').onclick=()=>{celebrate('Brawo Olu!','Świetnie zamieniłaś kilogramy i gramy!');const n=Number($('#cvMass').value)||0,u=$('#cvMassUnit').value; if(u==='g'){const kg=Math.floor(n/1000),g=n%1000;$('#cvMassOut').textContent=`${fmt(n)} g = ${kg} kg${g?' '+g+' g':''}`}else $('#cvMassOut').textContent=`${fmt(n)} kg = ${fmt(n*1000)} g`};
+const LF={mm:1,cm:10,m:1000,km:1000000};$('#cvLenBtn').onclick=()=>{celebrate('Brawo Olu!','Brawo! Centymetry i milimetry już Ci idą!');const n=Number($('#cvLen').value)||0,a=$('#cvLenFrom').value,b=$('#cvLenTo').value;const out=n*LF[a]/LF[b];$('#cvLenOut').textContent=`${fmt(n)} ${a} = ${out.toLocaleString('pl-PL',{maximumFractionDigits:6})} ${b}`};$('#cvMoneyBtn').onclick=()=>{celebrate('Brawo Olu!','Świetnie przeliczyłaś złote na grosze!');const n=Number($('#cvMoney').value)||0;$('#cvMoneyOut').textContent=`${n.toLocaleString('pl-PL',{minimumFractionDigits:2,maximumFractionDigits:2})} zł = ${Math.round(n*100)} gr`};
+
+/* TASKS – generated, many, varied */
+function shuffle(a){return [...a].sort(()=>Math.random()-0.5)}
+function makeChoices(correct,pool,formatter=x=>String(x)){const vals=shuffle(pool).filter(x=>x!==correct).slice(0,3);return shuffle([correct,...vals]).map(formatter)}
+function task(type,q,correct,options){return{type,q,correct:String(correct),options:shuffle(options.map(String))}}
+function buildTasks(){const a=[];
+// capacity conversions
+for(let i=0;i<40;i++){const l=1+(i%5),ml=[0,50,100,250,300,500,750,900][i%8],total=l*1000+ml;a.push(task('capacity',`${l} l ${ml} ml = ile ml?`,total,makeChoices(total,[total-100,total+100,total-250,total+250])))}
+for(let i=1;i<=30;i++){const ml=i*50;a.push(task('capacity',`${ml} ml = ile litrów?`,(ml/1000).toLocaleString('pl-PL'),makeChoices((ml/1000).toLocaleString('pl-PL'),[(ml/1000+0.1).toLocaleString('pl-PL'),Math.max(0,(ml/1000-0.1)).toLocaleString('pl-PL'),(ml/1000+0.5).toLocaleString('pl-PL')] )))}
+for(let i=0;i<25;i++){const a1=250+((i*137)%1000),b=100+((i*83)%600);a.push(task('capacity',`${a1} ml + ${b} ml =`,`${a1+b} ml`,makeChoices(`${a1+b} ml`,[`${a1+b+100} ml`,`${a1+b-50} ml`,`${Math.max(0,a1+b-200)} ml`])))}
+// mass
+for(let i=0;i<45;i++){const kg=i%4, g=[50,100,250,500,750,900][i%6],total=kg*1000+g;a.push(task('mass',`${kg} kg ${g} g = ile g?`,total,makeChoices(total,[total-50,total+50,total+100,total+250])))}
+for(let i=0;i<35;i++){const a1=100+(i*47)%800,b=50+(i*31)%450,total=a1+b;a.push(task('mass',`${a1} g + ${b} g =`,`${total} g`,makeChoices(`${total} g`,[`${total+100} g`,`${Math.max(0,total-50)} g`,`${total+250} g`])))}
+// length
+for(let i=1;i<=20;i++)a.push(task('length',`${i} cm = ile mm?`,`${i*10} mm`,makeChoices(`${i*10} mm`,[`${i*10+10} mm`,`${Math.max(0,i*10-10)} mm`,`${i*10+5} mm`])));
+for(let i=0;i<30;i++){const m=1+(i%5),cm=(i*17)%100,total=m*100+cm;a.push(task('length',`${m} m ${cm} cm = ile cm?`,`${total} cm`,makeChoices(`${total} cm`,[`${total+10} cm`,`${Math.max(0,total-10)} cm`,`${m*100} cm`])))}
+// money
+for(let i=0;i<40;i++){const zl=1+(i%8),gr=(i*13)%100,total=zl*100+gr;a.push(task('money',`${zl} zł ${gr} gr = ile gr?`,`${total} gr`,makeChoices(`${total} gr`,[`${total+10} gr`,`${Math.max(0,total-50)} gr`,`${total+100} gr`])))}
+for(let i=0;i<35;i++){const price=250+(i*137)%1800,pay=price<500?1000:price<1000?2000:5000,change=pay-price;a.push(task('money',`Towar kosztuje ${moneyFmt(price)}. Klient daje ${moneyFmt(pay)}. Ile reszty?`,moneyFmt(change),[moneyFmt(change),moneyFmt(change+50),moneyFmt(Math.max(0,change-100)),moneyFmt(change+100)]))}
+// mixed expressions
+const mixed=[['capacity','1 l 250 ml + 750 ml =','2 l',['2 l','1 l 500 ml','2 l 250 ml','1 l 750 ml']],['mass','1 kg 250 g + 750 g =','2 kg',['2 kg','1 kg 750 g','2 kg 250 g','1 kg 500 g']],['length','2 m 40 cm + 60 cm =','3 m',['3 m','2 m 100 cm','2 m 60 cm','3 m 40 cm']],['money','4 zł 50 gr + 50 gr =','5 zł',['5 zł','4 zł 100 gr','4 zł 70 gr','5 zł 50 gr']]];mixed.forEach(x=>a.push(task(...x)));
+return shuffle(a)}
+let tasks=buildTasks(),filteredTasks=[...tasks],taskIndex=0,taskAnswered=false,sessionCorrect=0;
+function renderTask(){if(!filteredTasks.length)return;const t=filteredTasks[taskIndex%filteredTasks.length];taskAnswered=false;$('#taskCounter').textContent=`Zadanie ${(taskIndex%filteredTasks.length)+1} / ${filteredTasks.length}`;$('#taskType').textContent={capacity:'🧃 Pojemność',mass:'⚖️ Masa',length:'📏 Długość',money:'💰 Pieniądze'}[t.type];$('#taskQuestion').textContent=t.q;$('#taskOptions').innerHTML=t.options.map((o,i)=>`<button class="task-option" data-i="${i}">${o}</button>`).join('');$('#taskFeedback').style.display='none';$('#taskProgress').style.width=((taskIndex%filteredTasks.length)/filteredTasks.length*100)+'%';$('#sessionCorrect').textContent=sessionCorrect;$$('#taskOptions .task-option').forEach(b=>b.onclick=()=>answerTask(t,b))}
+function answerTask(t,b){if(taskAnswered)return;taskAnswered=true;const good=b.textContent.trim()===t.correct;$$('#taskOptions .task-option').forEach(x=>x.disabled=true);if(good){b.classList.add('correct');sessionCorrect++;addPoints(2);$('#taskFeedback').textContent='Brawo Olu! +2 punkty.';$('#taskFeedback').className='status ok'}else{b.classList.add('wrong');const goodB=$$('#taskOptions .task-option').find(x=>x.textContent.trim()===t.correct);if(goodB)goodB.classList.add('correct');$('#taskFeedback').textContent=`Poprawna odpowiedź: ${t.correct}`;$('#taskFeedback').className='status bad'}$('#taskFeedback').style.display='block'}
+$('#nextTask').onclick=()=>{taskIndex=(taskIndex+1)%filteredTasks.length;renderTask()};$('#shuffleTasks').onclick=()=>{tasks=buildTasks();applyTaskFilter('all');taskIndex=0;sessionCorrect=0;renderTask()};function applyTaskFilter(f){filteredTasks=f==='all'?[...tasks]:tasks.filter(x=>x.type===f);taskIndex=0;$$('#taskFilters .task-filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter===f));renderTask()}$$('#taskFilters .task-filter-btn').forEach(b=>b.onclick=()=>applyTaskFilter(b.dataset.filter));renderTask();
+
+/* TEST + BEST SCORE + REWARD */
+let testMode=false,testQs=[],testI=0,testPts=0,testAnswered=false;
+function startTest(){testMode=true;testQs=shuffle(tasks).slice(0,10);testI=0;testPts=0;testAnswered=false;$('#testResult').style.display='none';renderTest()}
+function renderTest(){const t=testQs[testI];$('#taskType').textContent='📝 TEST';$('#taskCounter').textContent=`Pytanie ${testI+1} / 10`;$('#taskQuestion').textContent=t.q;$('#taskOptions').innerHTML=t.options.map(o=>`<button class="task-option">${o}</button>`).join('');$('#taskFeedback').style.display='none';$$('#taskOptions .task-option').forEach(b=>b.onclick=()=>{if(testAnswered)return;testAnswered=true;const good=b.textContent.trim()===t.correct;$$('#taskOptions .task-option').forEach(x=>x.disabled=true);if(good){testPts+=10;b.classList.add('correct');celebrate('Brawo Olu!','+10 pkt w teście!');$('#taskFeedback').textContent='Brawo Olu! +10 punktów';}else{b.classList.add('wrong');$('#taskFeedback').textContent=`Poprawna odpowiedź: ${t.correct}`;}$('#taskFeedback').style.display='block';setTimeout(()=>{testI++;testAnswered=false;if(testI<10)renderTest();else finishTest()},700)})}
+function finishTest(){const grade=testPts===100?'🏆 MISTRZ MIAR!':testPts>=80?'🥇 ZŁOTY MEDAL!':testPts>=60?'🥈 SREBRNY MEDAL!':testPts>=40?'🥉 BRĄZOWY MEDAL!':'🌟 ĆWICZ DALEJ!';if(testPts>best){best=testPts;localStorage.setItem('miary_best_v5',String(best));$('#bestScoreLabel').textContent=`Najlepszy wynik: ${best} pkt`;}$('#testResult').style.display='block';$('#testResult').className='status ok';$('#testResult').innerHTML=`<b>${grade}</b><br>Twój wynik: ${testPts}/100 punktów.`;testMode=false}
+$('#startTest').onclick=startTest;
+</script>
+</body>
+</html>
